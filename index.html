@@ -1,0 +1,72 @@
+<div id="app">
+    <span>Welcome to {{project}}, it's an example</span>
+    <div style="margin-top: 10px">
+        <div class="row">
+            <div class="label">name: </div>
+            <input v-model="people.name" />
+        </div>
+        <div class="row">
+            <div class="label">height:</div>
+            <input v-model="people.height" />
+        </div>
+    </div>
+    <div>Hello,  I am called {{people.name}} and my height is {{people.height}} cm</div>
+    <div>
+        <button @click="getTxt(people.name, people.height)">信息输出</button>
+        <button @click="change('code', 173)">设置</button>
+    </div>
+</div>
+<script src="./util.js"></script>
+<script src="./observer.js"></script>
+<script src="./watcher.js"></script>
+<script src="./dep.js"></script>
+<script src="./compiler.js"></script>
+<script src="./main.js"></script>
+<script>
+new Hue({
+    el: '#app',
+    data: {
+        count: 1,
+        project: 'Hue',
+        txt: '35',
+        people: {
+            name: 'Alice',
+            height: 160
+        }
+    },
+    watch: {
+        'people.name': {
+            handler (n, o) {
+                console.log('watch ===> newName:', n, 'oldName:', o)
+            }
+        },
+        // 对象监听
+        // 'people': {
+        //     deep: true,
+        //     handler (n, o) {
+        //         console.log('people changed...')
+        //     }
+        // }
+    },
+    methods: {
+        change (name, height) {
+            this.people.name = name
+            this.people.height = height
+        },
+        getTxt (name, height) {
+            console.log('name:', name, 'height:', height)
+        }
+    }
+})
+</script>
+<style>
+    .label{
+        width: 60px;
+        text-align: right;
+        margin-right: 10px;
+    }
+    .row{
+        display: flex;
+        margin-bottom: 10px;
+    }
+</style>
